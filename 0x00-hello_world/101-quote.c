@@ -11,7 +11,7 @@ int main(void)
 
 	int length = sizeof(str) - 1;
 
-	write(1, str, length);
+	write(2, str, length);
 
 	return (1);
 }
