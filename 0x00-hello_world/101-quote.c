@@ -7,11 +7,16 @@
  */
 int main(void)
 {
-	char text[] = "and that piece of art is useful\" - Dora Korpar, 2015-10-19";
+	char quote[] = "and that piece of art is useful ";
+	char author[] = "- Dora Korpar, 2015-10-19\n";
 
-	int length = sizeof(text);
+	int length = sizeof(quote) - 1;
 
-	write(1, text, length);
+	write(1, quote, length);
+
+	length = sizeof(author) - 1;
+
+	write(1, author, length);
 
 	return (1);
 }
