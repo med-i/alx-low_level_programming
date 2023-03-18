@@ -23,23 +23,18 @@ int main(void)
 			c = 48 + j / 10;
 			d = 48 + j % 10;
 
-			if (a == b && c == d )
-				continue;
-
-			if (a == c && b == d)
-				continue;
-
 			putchar(a);
 			putchar(b);
 			putchar(' ');
 			putchar(c);
 			putchar(d);
 
-			if(a == 57 && b == 56 && c == 57 && d == 57)
+			if (i == 98 && j == 99)
 				break;
 
-			putchar(',');	
+			putchar(',');
 			putchar(' ');
+
 		}
 	}
 
