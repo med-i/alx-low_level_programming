@@ -8,9 +8,9 @@
 int main(void)
 {
 	int i;
-	float fn;
-	float fn_1 = 1;
-	float fn_2 = 0;
+	unsigned long long fn;
+	unsigned long long fn_1 = 1;
+	unsigned long long fn_2 = 0;
 
 	for (i = 2; i <= 99; i++)
 	{
@@ -18,7 +18,7 @@ int main(void)
 		fn_2 = fn_1;
 		fn_1 = fn;
 
-		printf("%.0f", fn);
+		printf("%llu", fn);
 
 		if (i < 99)
 			printf(", ");
@@ -28,4 +28,3 @@ int main(void)
 
 	return (0);
 }
-
