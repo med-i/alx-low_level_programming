@@ -9,14 +9,14 @@ int main(void)
 {
 	int i;
 	long fn;
-	long fn1 = 1;
-	long fn2 = 0;
+	long fn_1 = 1;
+	long fn_2 = 0;
 
 	for (i = 2; i <= 51; i++)
 	{
-		fn = fn1 + fn2;
-		fn2 = fn1;
-		fn1 = fn;
+		fn = fn_1 + fn_2;
+		fn_2 = fn_1;
+		fn_1 = fn;
 
 		printf("%ld", fn);
 
