@@ -8,15 +8,15 @@
 int main(void)
 {
 	int i, sum;
-	long fn2 = 0;
-	long fn1 = 1;
-	long fn = fn2 + fn1;
+	long fn;
+	long fn_1 = 1;
+	long fn_2 = 0;
 
 	while (1)
 	{
-		fn2 = fn1;
-		fn1 = fn;
-		fn = fn1 + fn2;
+		fn = fn_1 + fn_2;
+		fn_2 = fn_1;
+		fn_1 = fn;
 
 		if (fn > 4000000)
 			break;
