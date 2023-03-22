@@ -1,12 +1,13 @@
 #include "main.h"
 
 /**
- * print_times_table - Write a function that prints the n times table, starting with 0.
+ * print_times_table - Write a function that prints the n times table,
+ * starting with 0.
  * @n: The number to print.
  */
 void print_times_table(int n)
 {
-	int i, j, r, nr;
+	int i, j, r;
 
 	if (n < 0 || n > 15)
 		return;
@@ -37,21 +38,29 @@ void print_times_table(int n)
 			}
 
 			if (j < n)
-			{
-				_putchar(',');
-				_putchar(' ');
-
-				nr = i * (j + 1);
-
-				if (nr < 100)
-					_putchar(' ');
-
-				if (nr < 10)
-					_putchar(' ');
-			}
+				print_space(i, j);
 		}
 
 		_putchar('\n');
 	}
+}
+
+/**
+ * print_space - Printa ',' and ' '.
+ * @i: rows.
+ * @j: columns.
+ */
+void print_space(int i, int j)
+{
+	int nr = i * (j + 1);
+
+	_putchar(',');
+	_putchar(' ');
+
+	if (nr < 100)
+		_putchar(' ');
+
+	if (nr < 10)
+		_putchar(' ');
 }
 
