@@ -8,22 +8,15 @@
 int main(void)
 {
 	int i;
-	long fn, fn1, fn2;
+	long fn;
+	long fn1 = 1;
+	long fn2 = 0;
 
 	for (i = 2; i <= 51; i++)
 	{
-		if (i == 2)
-		{
-			fn = 1;
-			fn1 = 1;
-			fn2 = 0;
-		}
-		else
-		{
-			fn2 = fn1;
-			fn1 = fn;
-			fn = fn1 + fn2;
-		}
+		fn = fn1 + fn2;
+		fn2 = fn1;
+		fn1 = fn;
 
 		printf("%ld", fn);
 
