@@ -10,7 +10,7 @@ int main(void)
 	int i;
 	long fn, fn1, fn2;
 
-	for (i = 2; i <= 50; i++)
+	for (i = 2; i <= 51; i++)
 	{
 		if (i == 2)
 		{
@@ -27,7 +27,7 @@ int main(void)
 
 		printf("%ld", fn);
 
-		if (i < 50)
+		if (i < 51)
 			printf(", ");
 	}
 
