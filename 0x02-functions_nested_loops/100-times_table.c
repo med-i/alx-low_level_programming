@@ -7,7 +7,7 @@
  */
 void print_times_table(int n)
 {
-	int i, j, r;
+	int i, j, r, nr;
 
 	if (n < 0 || n > 15)
 		return;
@@ -18,49 +18,34 @@ void print_times_table(int n)
 		{
 			r = i * j;
 
-			if (r < 10)
+			if (r >= 10 && r <= 99)
 			{
-				_putchar('0' + r);
+				_putchar('0' + r / 10);
 			}
-			else
+			else if (r >= 100)
 			{
-				if (r >= 100)
-				{
-					_putchar('0' + r / 100);
-					_putchar('0' + r / 10 % 10);
-				}
-				else
-				{
-					_putchar('0' + r / 10);
-				}
+				_putchar('0' + r / 100);
+				_putchar('0' + r / 10 % 10);
+			}
 
-				_putchar('0' + r % 10);
-			}
+			_putchar('0' + r % 10);
 
 			if (j < n)
-				print_space(i, j);
+			{
+				nr = i * (j + 1);
+
+				_putchar(',');
+				_putchar(' ');
+
+				if (nr <= 99)
+					_putchar(' ');
+
+				if (nr <= 9)
+					_putchar(' ');
+			}
 		}
 
 		_putchar('\n');
 	}
-}
-
-/**
- * print_space - Printa ',' and ' '.
- * @i: rows.
- * @j: columns.
- */
-void print_space(int i, int j)
-{
-	int nr = i * (j + 1);
-
-	_putchar(',');
-	_putchar(' ');
-
-	if (nr < 100)
-		_putchar(' ');
-
-	if (nr < 10)
-		_putchar(' ');
 }
 
