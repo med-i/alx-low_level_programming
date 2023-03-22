@@ -7,34 +7,25 @@
  */
 int main(void)
 {
-	int i;
-	long fn, fn1, fn2, sum;
+	int i, sum;
+	long fn2 = 0;
+	long fn1 = 1;
+	long fn = fn2 + fn1;
 
 	while (1)
 	{
-		if (i == 2)
-		{
-			fn = 1;
-			fn1 = 1;
-			fn2 = 0;
-		}
-		else
-		{
-			fn2 = fn1;
-			fn1 = fn;
-			fn = fn1 + fn2;
-		}
+		fn2 = fn1;
+		fn1 = fn;
+		fn = fn1 + fn2;
 
 		if (fn > 4000000)
 			break;
-
-		i++;
 
 		if (fn % 2 == 0)
 			sum += fn;
 	}
 
-	printf("%ld\n", sum);
+	printf("%d\n", sum);
 
 	return (0);
 }
