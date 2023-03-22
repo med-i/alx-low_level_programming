@@ -10,7 +10,7 @@ int main(void)
 	int i;
 	long fn, fn1, fn2, sum;
 
-	while (fn <= 4000000)
+	while (1)
 	{
 		if (i == 2)
 		{
@@ -24,6 +24,9 @@ int main(void)
 			fn1 = fn;
 			fn = fn1 + fn2;
 		}
+
+		if (fn > 4000000)
+			break;
 
 		i++;
 
