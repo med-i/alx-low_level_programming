@@ -6,37 +6,42 @@
  */
 void print_number(int n)
 {
-	int temp;
 	int div = 1;
-	int d;
-
-	if (n == 0)
-	{
-		_putchar('0');
-		return;
-	}
+	int temp;
+	int is_min = 0;
+	int c;
 
 	if (n < 0)
 	{
 		_putchar('-');
-		n *= -1;
+
+		if (n == INT_MIN)
+		{
+			n = INT_MAX;
+			is_min = 1;
+		}
+		else
+			n = -n;
 	}
 
 	temp = n;
 
-	while (temp > 0)
+	while (temp >= 10)
 	{
 		temp /= 10;
 		div *= 10;
 	}
 
-	div /= 10;
 	temp = n;
 
-	while (temp > 0)
+	while (div >= 1)
 	{
-		d = temp / div;
-		_putchar('0' + d);
+		c = 48 + temp / div;
+
+		if (is_min && div == 1)
+			c++;
+
+		_putchar(c);
 		temp %= div;
 		div /= 10;
 	}
