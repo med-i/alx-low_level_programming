@@ -10,7 +10,7 @@ void rev_string(char *s)
 	int i = 0;
 	int j = n - 1;
 
-	while (i <= n / 2)
+	while (i < n / 2)
 	{
 		char tmp;
 
