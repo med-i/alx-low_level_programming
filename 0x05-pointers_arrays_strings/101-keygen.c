@@ -7,18 +7,21 @@
  */
 int main(void)
 {
-	char *pass;
-	int len;
+	char pass[99];
+	int total = 0;
 	int i;
 
 	srand(time(0));
 
-	len = rand() % 15 + 6;
+	while (total <= 2646)
+	{
+		char c = (char)(rand() % 94 + 33); // 33 - 126 // 2772 - 126 = 
+		pass[i] = c;
+		total += c;
+		i++;
+	}
 
-	pass = (char *)malloc(len * sizeof(char));
-
-	for (i = 0; i < len; i++)
-		pass[i] = (char)(rand() % 94 + 33);
+	pass[i] = (char)(2772 - total);
 
 	printf("%s\n", pass);
 
