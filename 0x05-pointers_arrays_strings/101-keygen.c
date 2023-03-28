@@ -15,7 +15,8 @@ int main(void)
 
 	while (total <= 2646)
 	{
-		char c = (char)(rand() % 94 + 33); // 33 - 126 // 2772 - 126 = 
+		char c = (char)(rand() % 94 + 33);
+
 		pass[i] = c;
 		total += c;
 		i++;
