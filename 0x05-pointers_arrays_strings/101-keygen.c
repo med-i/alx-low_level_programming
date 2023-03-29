@@ -25,9 +25,7 @@ int main(void)
 		i++;
 	}
 
-	char c = (char)(2772 - total);
-	pass[i] = c;
-	total += c;
+	pass[i] = (char)(2772 - total);
 
 	printf("%s\n", pass);
 
