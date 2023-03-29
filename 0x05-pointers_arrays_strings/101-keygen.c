@@ -9,7 +9,7 @@ int main(void)
 {
 	char pass[99];
 	int total = 0;
-	int i;
+	int i = 0;
 
 	srand(time(0));
 
@@ -26,11 +26,10 @@ int main(void)
 	}
 
 	char c = (char)(2772 - total);
-	pass[++i] = c;
+	pass[i] = c;
 	total += c;
 
 	printf("%s\n", pass);
-	printf("%d\n", total);
 
 	return (0);
 }
