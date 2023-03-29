@@ -8,18 +8,13 @@
  */
 int _atoi(char *s)
 {
-	int len = 0;
 	int sign = 1;
 	int got_number = 0;
 	int number = 0;
-	int i;
 
-	while (s[len] != '\0')
-		len++;
-
-	for (i = 0; i < len; i++)
+	while (*s != '\0')
 	{
-		char c = s[i];
+		char c = *s;
 
 		if (!got_number && c == '-')
 			sign *= -1;
@@ -33,6 +28,8 @@ int _atoi(char *s)
 		}
 		else if (got_number)
 			break;
+
+		s++;
 	}
 
 	return (number * sign);
