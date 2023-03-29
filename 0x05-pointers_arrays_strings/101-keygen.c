@@ -13,18 +13,24 @@ int main(void)
 
 	srand(time(0));
 
-	while (total <= 2646)
+	while (1)
 	{
 		char c = (char)(rand() % 94 + 33);
 
-		pass[i] = c;
+		if (total + c > 2739)
+			break;
+
 		total += c;
+		pass[i] = c;
 		i++;
 	}
 
-	pass[i] = (char)(2772 - total);
+	char c = (char)(2772 - total);
+	pass[++i] = c;
+	total += c;
 
 	printf("%s\n", pass);
+	printf("%d\n", total);
 
 	return (0);
 }
