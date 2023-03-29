@@ -4,7 +4,7 @@
  * _strncpy - Copies a string.
  * @dest: The destination string.
  * @src: The source string.
- * @n: The size to copy.
+ * @n: The number of bytes to copy.
  *
  * Return: Pointer to the string dest.
  */
