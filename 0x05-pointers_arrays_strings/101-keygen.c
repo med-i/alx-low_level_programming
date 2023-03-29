@@ -1,3 +1,4 @@
+
 #include "main.h"
 
 /**
@@ -8,24 +9,21 @@
 int main(void)
 {
 	char pass[99];
-	int total = 0;
+	int sum = 0;
 	int i = 0;
 
 	srand(time(0));
 
-	while (1)
+	while (sum < 2772)
 	{
 		char c = (char)(rand() % 94 + 33);
 
-		if (total + c > 2739)
-			break;
-
-		total += c;
 		pass[i] = c;
+		sum += c;
 		i++;
 	}
 
-	pass[i] = (char)(2772 - total);
+	pass[i] = (char)(2772 - sum);
 
 	printf("%s\n", pass);
 
