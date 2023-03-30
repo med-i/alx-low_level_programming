@@ -15,11 +15,9 @@ char *leet(char *str)
 
 	while (str[i] != '\0')
 	{
-		char c = str[i];
-
 		while (letters[j] != '\0')
 		{
-			if (c == letters[j])
+			if (str[i] == letters[j])
 			{
 				str[i] = numbers[j];
 				break;
