@@ -7,10 +7,7 @@
 void print_number(int n)
 {
 	unsigned int num = n;
-	int digit;
-	char str[10];
-	int len = 0;
-	int i;
+	int div = 1;
 
 	if (n < 0)
 	{
@@ -18,20 +15,13 @@ void print_number(int n)
 		num = -n;
 	}
 
-	if (num < 10)
-	{
-		_putchar('0' + num);
-		return;
-	}
+	while (num / div >= 10)
+		div *= 10;
 
-	while (num > 0)
+	while (div >= 1)
 	{
-		digit = num % 10;
-		num /= 10;
-		str[len] = '0' + digit;
-		len++;
+		_putchar('0' + num / div);
+		num %= div;
+		div /= 10;
 	}
-
-	for (i = len - 1; i >= 0; i--)
-		_putchar(str[i]);
 }
