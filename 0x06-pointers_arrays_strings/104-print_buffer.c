@@ -32,6 +32,13 @@ void print_buffer(char *b, int size)
 	}
 }
 
+/**
+ * print_hex - Prints hexadecimal.
+ * @b: The buffer.
+ * @size: The size of the buffer.
+ * @len: The length of the buffer.
+ * @bytes: Steps on each iteration.
+ */
 void print_hex(char *b, int size, int len, int bytes)
 {
 	int i;
@@ -68,6 +75,12 @@ void print_hex(char *b, int size, int len, int bytes)
 	}
 }
 
+/**
+ * print_chars - Prints characters.
+ * @b: The buffer.
+ * @len: The length of the buffer.
+ * @bytes: Steps on each iteration.
+ */
 void print_chars(char *b, int len, int bytes)
 {
 	int i;
@@ -76,7 +89,8 @@ void print_chars(char *b, int len, int bytes)
 	{
 		char c = b[i];
 
-		if (c == '\0' || c == '\1' || c == '\2' || c == '\3' || c == '\4' || c == '\5' || c == '\6' || c == '\7' || c == '\n')
+		if (c == '\0' || c == '\1' || c == '\2' || c == '\3' ||
+		c == '\4' || c == '\5' || c == '\6' || c == '\7' || c == '\n')
 			printf(".");
 		else
 			printf("%c", b[i]);
