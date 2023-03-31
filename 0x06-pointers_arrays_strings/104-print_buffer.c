@@ -8,7 +8,6 @@
 void print_buffer(char *b, int size)
 {
 	int len;
-	int bytes = size < 10 ? size - 1 : 10;
 
 	if (size <= 0)
 	{
@@ -19,12 +18,9 @@ void print_buffer(char *b, int size)
 	for (len = 0; len < size; len += 10)
 	{
 		printf("%08x: ", len);
-		print_hex(b, size, len, bytes);
-		print_chars(b, len, bytes);
+		print_hex(b, size, len);
+		print_chars(b, size, len);
 		printf("\n");
-
-		if (size - len - 10 < 10)
-			bytes = size - len - 10;
 	}
 }
 
@@ -32,16 +28,15 @@ void print_buffer(char *b, int size)
  * print_hex - Prints hexadecimal.
  * @b: The buffer.
  * @size: The size of the buffer.
- * @len: The length of the buffer.
- * @bytes: Steps on each iteration.
+ * @len: The length to print.
  */
-void print_hex(char *b, int size, int len, int bytes)
+void print_hex(char *b, int size, int len)
 {
 	int i;
 
-	for (i = len; i < len + bytes; i += 2)
+	for (i = len; i < len + 10 && i < size; i += 2)
 	{
-		if (i < size)
+		if (i + 1 < size)
 			printf("%02x%02x ", b[i], b[i + 1]);
 		else
 			printf("%02x00 ", b[i]);
@@ -57,14 +52,14 @@ void print_hex(char *b, int size, int len, int bytes)
 /**
  * print_chars - Prints characters.
  * @b: The buffer.
- * @len: The length of the buffer.
- * @bytes: Steps on each iteration.
+ * @size: The size of the buffer.
+ * @len: The length to print.
  */
-void print_chars(char *b, int len, int bytes)
+void print_chars(char *b, int size, int len)
 {
 	int i;
 
-	for (i = len; i < len + bytes; i++)
+	for (i = len; i < len + +10 && i < size; i++)
 	{
 		char c = b[i];
 
