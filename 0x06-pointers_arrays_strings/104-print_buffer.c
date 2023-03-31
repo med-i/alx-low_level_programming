@@ -26,7 +26,7 @@ void print_buffer(char *b, int size)
 		printf("\n");
 
 		if (size - len < 10)
-			bytes = size - len;
+			bytes = size - len - 1;
 
 		len += bytes;
 	}
