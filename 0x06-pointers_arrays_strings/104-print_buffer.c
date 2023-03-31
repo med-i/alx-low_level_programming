@@ -19,10 +19,8 @@ void print_buffer(char *b, int size)
 	for (len = 0; len < size; len += 10)
 	{
 		printf("%08x: ", len);
-
 		print_hex(b, size, len, bytes);
 		print_chars(b, len, bytes);
-
 		printf("\n");
 
 		if (size - len - 10 < 10)
@@ -40,36 +38,19 @@ void print_buffer(char *b, int size)
 void print_hex(char *b, int size, int len, int bytes)
 {
 	int i;
-	int count;
 
-	for (i = len, count = 0; i < len + bytes; i++)
+	for (i = len; i < len + bytes; i += 2)
 	{
-		printf("%02x", b[i]);
-
-		if (i % 2 != 0)
-			printf(" ");
-
-		count++;
+		if (i < size)
+			printf("%02x%02x ", b[i], b[i + 1]);
+		else
+			printf("%02x00 ", b[i]);
 	}
 
-	if (i == size - 1 && i % 2 != 0)
+	while (i % 10 > 0)
 	{
-		printf("00");
-
-		if (i % 2 != 0)
-			printf(" ");
-
-		count++;
-	}
-
-	while (count < 10)
-	{
-		printf("  ");
-
-		if (count % 2 != 0)
-			printf(" ");
-
-		count++;
+		printf("     ");
+		i += 2;
 	}
 }
 
@@ -91,6 +72,6 @@ void print_chars(char *b, int len, int bytes)
 		    c == '\4' || c == '\5' || c == '\6' || c == '\7' || c == '\n')
 			printf(".");
 		else
-			printf("%c", b[i]);
+			printf("%c", c);
 	}
 }
