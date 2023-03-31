@@ -9,7 +9,7 @@ void print_buffer(char *b, int size)
 {
 	int len;
 	int bytes = size < 10 ? size - 1 : 10;
-	
+
 	if (size <= 0)
 	{
 		printf("\n");
