@@ -7,18 +7,18 @@
  */
 void print_buffer(char *b, int size)
 {
-	int len = 0;
+	int len;
 	int bytes = size < 10 ? size - 1 : 10;
-
+	
 	if (size <= 0)
 	{
 		printf("\n");
 		return;
 	}
 
-	while (len < size)
+	for (len = 0; len < size; len += 10)
 	{
-		printf("%08x: ", *(b + len));
+		printf("%08x: ", len);
 
 		print_hex(b, size, len, bytes);
 		print_chars(b, len, bytes);
@@ -27,8 +27,6 @@ void print_buffer(char *b, int size)
 
 		if (size - len - 10 < 10)
 			bytes = size - len - 10;
-
-		len += 10;
 	}
 }
 
