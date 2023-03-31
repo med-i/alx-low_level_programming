@@ -18,7 +18,7 @@ void print_buffer(char *b, int size)
 
 	while (len < size)
 	{
-		printf("%p: ", b + len);
+		printf("%08x: ", *(b + len));
 
 		print_hex(b, size, len, bytes);
 		print_chars(b, len, bytes);
