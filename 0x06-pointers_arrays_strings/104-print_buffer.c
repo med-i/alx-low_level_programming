@@ -25,10 +25,10 @@ void print_buffer(char *b, int size)
 
 		printf("\n");
 
-		if (size - len < 10)
-			bytes = size - len;
+		if (size - len - 10 < 10)
+			bytes = size - len - 10;
 
-		len += bytes;
+		len += 10;
 	}
 }
 
@@ -90,7 +90,7 @@ void print_chars(char *b, int len, int bytes)
 		char c = b[i];
 
 		if (c == '\0' || c == '\1' || c == '\2' || c == '\3' ||
-		c == '\4' || c == '\5' || c == '\6' || c == '\7' || c == '\n')
+		    c == '\4' || c == '\5' || c == '\6' || c == '\7' || c == '\n')
 			printf(".");
 		else
 			printf("%c", b[i]);
