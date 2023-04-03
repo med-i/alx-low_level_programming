@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _strsnp - Gets the length of a prefix substring.
+ * _strspn - Gets the length of a prefix substring.
  * @s: The string to check.
  * @accept: The bytes to match.
  *
