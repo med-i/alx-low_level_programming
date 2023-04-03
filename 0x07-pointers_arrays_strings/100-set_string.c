@@ -1,14 +1,12 @@
 #include "main.h"
 
 /**
- *  - 
+ *  -
  * @
  * @
  *
- * Return: 
+ * Return:
  */
 void set_string(char **s, char *to)
 {
-
 }
-

@@ -1,14 +1,12 @@
 #include "main.h"
 
 /**
- *  - 
+ *  -
  * @
  * @
  *
- * Return: 
+ * Return:
  */
 void print_diagsums(int *a, int size)
 {
-
 }
-

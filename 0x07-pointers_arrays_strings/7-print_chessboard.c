@@ -1,14 +1,12 @@
 #include "main.h"
 
 /**
- *  - 
+ *  -
  * @
  * @
  *
- * Return: 
+ * Return:
  */
 void print_chessboard(char (*a)[8])
 {
-
 }
-
