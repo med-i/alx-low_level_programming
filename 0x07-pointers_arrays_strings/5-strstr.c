@@ -19,6 +19,7 @@ char *_strstr(char *haystack, char *needle)
 		if (haystack[i] == needle[0])
 		{
 			start = i;
+			has_str = 1;
 
 			for (j = 1; j < sub_len; j++)
 			{
@@ -27,8 +28,6 @@ char *_strstr(char *haystack, char *needle)
 					has_str = 0;
 					break;
 				}
-
-				has_str = 1;
 			}
 
 			if (has_str)
