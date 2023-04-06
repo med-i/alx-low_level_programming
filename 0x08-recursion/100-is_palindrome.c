@@ -27,10 +27,5 @@ int check_equality(char *s, int start, int end)
  */
 int is_palindrome(char *s)
 {
-	int len = 0;
-
-	while (s[len])
-		len++;
-
-	return (check_equality(s, 0, len - 1));
+	return (check_equality(s, 0, strlen(s) - 1));
 }
