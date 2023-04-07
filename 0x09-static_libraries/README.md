@@ -1,4 +1,4 @@
-`Task 0` - Create the static library libmy.a containing all the functions listed below:\
+`Task 0` - Create the static library libmy.a containing all the functions listed below:
 
 `int _putchar(char c);`\
 `int _islower(int c);`\
