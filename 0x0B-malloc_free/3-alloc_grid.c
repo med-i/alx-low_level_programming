@@ -10,29 +10,31 @@
 int **alloc_grid(int width, int height)
 {
 	int **arr;
-	int i;
+	int i, j;
 
 	if (width <= 0 || height <= 0)
-	{
 		return (NULL);
-	}
 
-	arr = calloc(width, sizeof(int *));
+	arr = malloc(width * sizeof(int *));
 	if (!arr)
 	{
-		fprintf(stderr, "Memory allocation failed!\n");
+		free(arr);
 		return (NULL);
 	}
 
 	for (i = 0; i < width; i++)
 	{
-		arr[i] = calloc(height, sizeof(int));
+		arr[i] = malloc(height * sizeof(int));
 		if (!arr)
 		{
-			fprintf(stderr, "Memory allocation failed!\n");
+			free(arr[i]);
 			return (NULL);
 		}
 	}
+
+	for (i = 0; i < width; i++)
+		for (j = 0; j < height; j++)
+			arr[i][j] = 0;
 
 	return (arr);
 }
