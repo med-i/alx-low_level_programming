@@ -9,12 +9,16 @@
  */
 char *_strdup(char *str)
 {
-	char *dupstr = malloc(strlen(str) + 1);
+	char *dupstr;
 	int i;
 
+	if (!str)
+		return (NULL);
+
+	dupstr = malloc(strlen(str) + 1);
 	if (!dupstr)
 	{
-		fprintf(stderr, "Memory allocation failed!\n");
+		free(dupstr);
 		return (NULL);
 	}
 
