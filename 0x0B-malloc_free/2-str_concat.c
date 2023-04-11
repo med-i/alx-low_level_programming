@@ -15,21 +15,14 @@ char *str_concat(char *s1, char *s2)
 	int size;
 	int i, j;
 
-	if (!s1)
-		size_s1 = 0;
-
-	if (!s2)
-		size_s2 = 0;
-
-	size_s1 = strlen(s1);
-	size_s2 = strlen(s2);
-
+	size_s1 = !s1 ? 0 : strlen(s1);
+	size_s2 = !s2 ? 0 : strlen(s2);
 	size = size_s1 + size_s2 + 1;
 
 	constr = malloc(size);
 	if (!constr)
 	{
-		fprintf(stderr, "Memory allocation failed!\n");
+		free(constr);
 		return (NULL);
 	}
 
