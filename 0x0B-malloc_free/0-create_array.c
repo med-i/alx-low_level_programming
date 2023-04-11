@@ -10,12 +10,12 @@
  */
 char *create_array(unsigned int size, char c)
 {
-	char *arr = malloc(size + 1);
+	char *arr = malloc(size);
 	unsigned int i;
 
 	if (!arr)
 	{
-		fprintf(stderr, "Memory allocation failed!\n");
+		free(arr);
 		return (NULL);
 	}
 
