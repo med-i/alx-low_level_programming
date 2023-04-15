@@ -66,10 +66,9 @@ void print_chars(char *b, int size, int len)
 	{
 		char c = b[i];
 
-		if (c == '\0' || c == '\1' || c == '\2' || c == '\3' ||
-		    c == '\4' || c == '\5' || c == '\6' || c == '\7' || c == '\n')
-			printf(".");
-		else
+		if (c >= 32 && c <= 126)
 			printf("%c", c);
+		else
+			printf(".");
 	}
 }
