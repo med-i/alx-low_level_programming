@@ -59,7 +59,7 @@ void print_chars(char *b, int size, int len)
 {
 	int i;
 
-	for (i = len; i < len + +10 && i < size; i++)
+	for (i = len; i < len + 10 && i < size; i++)
 	{
 		char c = b[i];
 
