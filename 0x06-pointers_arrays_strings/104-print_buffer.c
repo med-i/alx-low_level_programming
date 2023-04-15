@@ -39,7 +39,10 @@ void print_hex(char *b, int size, int len)
 		if (i + 1 < size)
 			printf("%02x%02x ", b[i], b[i + 1]);
 		else
+		{
 			printf("%02x ", b[i]);
+			printf("   ");
+		}
 	}
 
 	while (i % 10 > 0)
