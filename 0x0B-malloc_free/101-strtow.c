@@ -23,15 +23,15 @@ int count_words(char *str)
 }
 
 /**
- * count_chars - counts the lenth of each word of a string.
- * @str: the string to count the length of it words.
+ * count_chars - counts the length of each word of a string.
+ * @str: the string to count the length of its words.
  * @wrd_c: the number of words of the string.
  *
  * Return: an array of lengths of the words in str.
  */
 int *count_chars(char *str, int wrd_c)
 {
-	int *chr_c = malloc(wrd_c);
+	int *chr_c = malloc(wrd_c * sizeof(int));
 	int i, j, is_word = 0, count = 0;
 
 	for (i = 0, j = 0; str[i]; i++)
@@ -46,6 +46,9 @@ int *count_chars(char *str, int wrd_c)
 			count = 0;
 			is_word = 0;
 		}
+
+	if (is_word)
+		chr_c[j] = count;
 
 	return (chr_c);
 }
@@ -67,7 +70,7 @@ char **strtow(char *str)
 
 	wrd_c = count_words(str);
 	chr_c = count_chars(str, wrd_c);
-	words = malloc(wrd_c + 1);
+	words = malloc((wrd_c + 1) * sizeof(char *));
 
 	for (i = 0, j = 0, k = 0; str[i]; i++)
 	{
@@ -91,7 +94,10 @@ char **strtow(char *str)
 		}
 	}
 
-	words[wrd_c] = '\0';
+	if (is_word)
+		words[j][k] = '\0';
+
+	words[wrd_c] = NULL;
 
 	return (words);
 }
