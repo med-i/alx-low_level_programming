@@ -1,6 +1,56 @@
 #include "main.h"
 
 /**
+ * count_words - counts the number of words in a string.
+ * @str: the string to count its words.
+ *
+ * Return: the count of words in str.
+ */
+int count_words(char *str)
+{
+	int i, is_word_start = 1, count = 0;
+
+	for (i = 0; str[i]; i++)
+		if (isblank(str[i]))
+			is_word_start = 1;
+		else
+		{
+			count += is_word_start ? 1 : 0;
+			is_word_start = 0;
+		}
+
+	return (count);
+}
+
+/**
+ * count_chars - counts the lenth of each word of a string.
+ * @str: the string to count the length of it words.
+ * @wrd_c: the number of words of the string.
+ *
+ * Return: an array of lengths of the words in str.
+ */
+int *count_chars(char *str, int wrd_c)
+{
+	int *chr_c = malloc(wrd_c);
+	int i, j, is_word = 0, count = 0;
+
+	for (i = 0, j = 0; str[i]; i++)
+		if (!isblank(str[i]))
+		{
+			count++;
+			is_word = 1;
+		}
+		else if (is_word)
+		{
+			chr_c[j++] = count;
+			count = 0;
+			is_word = 0;
+		}
+
+	return (chr_c);
+}
+
+/**
  * strtow - splits a string into words.
  * @str: the string to split.
  *
@@ -8,55 +58,40 @@
  */
 char **strtow(char *str)
 {
-	int i = 0, j;
-	int words_count;
-	int was_counted = 0;
+	int wrd_c, *chr_c;
 	char **words;
+	int i, j, k, is_word = 0;
 
 	if (!str || !*str)
 		return (NULL);
 
-	while (str[i++])
-	{
-		if (isspace(str[i]))
-		{
-			was_counted = 1;
-			continue;
-		}
+	wrd_c = count_words(str);
+	chr_c = count_chars(str, wrd_c);
+	words = malloc(wrd_c + 1);
 
-		if (was_counted && str[i] != '\0')
+	for (i = 0, j = 0, k = 0; str[i]; i++)
+	{
+		if (j >= wrd_c)
+			break;
+
+		if (!isblank(str[i]))
 		{
-			words_count++;
-			was_counted = 0;
+			if (k == 0)
+				words[j] = malloc(chr_c[j] + 1);
+
+			words[j][k++] = str[i];
+			is_word = 1;
+		}
+		else if (is_word)
+		{
+			words[j][k] = '\0';
+			j++;
+			k = 0;
+			is_word = 0;
 		}
 	}
 
-	words = malloc(words_count * sizeof(char *));
-	if (!words)
-	{
-		free(words);
-		return (NULL);
-	}
-
-	for (i = 0, j = 0; i < words_count; i++)
-	{
-		while (str[j++])
-		{
-			if (isspace(str[j]))
-			{
-				was_counted = 1;
-				continue;
-			}
-
-			if (was_counted && str[j] != '\0')
-			{
-				words[i] += str[j];
-				was_counted = 0;
-			}
-		}
-
-		words[i] += '\0';
-	}
+	words[wrd_c] = '\0';
 
 	return (words);
 }
