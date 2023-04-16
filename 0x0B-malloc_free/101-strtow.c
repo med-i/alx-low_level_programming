@@ -61,14 +61,16 @@ int *count_chars(char *str, int wrd_c)
  */
 char **strtow(char *str)
 {
-	int wrd_c, *chr_c;
+	int wrd_c, *chr_c, i, j, k, is_word = 0;
 	char **words;
-	int i, j, k, is_word = 0;
 
 	if (!str || !*str)
 		return (NULL);
 
 	wrd_c = count_words(str);
+	if (wrd_c == 0)
+		return (NULL);
+
 	chr_c = count_chars(str, wrd_c);
 	words = malloc((wrd_c + 1) * sizeof(char *));
 
@@ -96,7 +98,6 @@ char **strtow(char *str)
 
 	if (is_word)
 		words[j][k] = '\0';
-
 	words[wrd_c] = NULL;
 
 	return (words);
