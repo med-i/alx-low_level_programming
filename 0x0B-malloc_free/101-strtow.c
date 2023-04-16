@@ -32,8 +32,7 @@ int count_words(char *str)
 int *count_chars(char *str, int wrd_c)
 {
 	int i, j, is_word = 0, count = 0;
-
-	int *chr_c = malloc(wrd_c * sizeof(int));
+	int *chr_c = malloc(wrd_c * sizeof(int) + 1);
 
 	if (!chr_c)
 	{
@@ -77,7 +76,7 @@ char **strtow(char *str)
 	if (!str || !*str || !wrd_c || !chr_c)
 		return (NULL);
 
-	words = malloc((wrd_c + 1) * sizeof(char *));
+	words = malloc(wrd_c * sizeof(char *) + 1);
 	if (!words)
 	{
 		free(words);
