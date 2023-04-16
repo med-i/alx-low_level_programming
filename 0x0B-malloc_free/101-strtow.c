@@ -31,8 +31,15 @@ int count_words(char *str)
  */
 int *count_chars(char *str, int wrd_c)
 {
-	int *chr_c = malloc(wrd_c * sizeof(int));
 	int i, j, is_word = 0, count = 0;
+
+	int *chr_c = malloc(wrd_c * sizeof(int));
+
+	if (!chr_c)
+	{
+		free(chr_c);
+		return (NULL);
+	}
 
 	for (i = 0, j = 0; str[i]; i++)
 		if (!isblank(str[i]))
@@ -64,15 +71,18 @@ char **strtow(char *str)
 	int wrd_c, *chr_c, i, j, k, is_word = 0;
 	char **words;
 
-	if (!str || !*str)
-		return (NULL);
-
 	wrd_c = count_words(str);
-	if (wrd_c == 0)
+	chr_c = count_chars(str, wrd_c);
+
+	if (!str || !*str || !wrd_c || !chr_c)
 		return (NULL);
 
-	chr_c = count_chars(str, wrd_c);
 	words = malloc((wrd_c + 1) * sizeof(char *));
+	if (!words)
+	{
+		free(words);
+		return (NULL);
+	}
 
 	for (i = 0, j = 0, k = 0; str[i]; i++)
 	{
@@ -82,7 +92,14 @@ char **strtow(char *str)
 		if (!isblank(str[i]))
 		{
 			if (k == 0)
+			{
 				words[j] = malloc(chr_c[j] + 1);
+				if (!words[j])
+				{
+					free(words[j]);
+					return (NULL);
+				}
+			}
 
 			words[j][k++] = str[i];
 			is_word = 1;
