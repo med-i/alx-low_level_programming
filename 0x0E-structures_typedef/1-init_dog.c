@@ -8,7 +8,12 @@
  */
 void init_dog(struct dog *d, char *name, float age, char *owner)
 {
-	d->name = name;
-	d->age = age;
-	d->owner = owner;
+	if (d->name)
+		d->name = name;
+
+	if (d->age)
+		d->age = age;
+
+	if (d->owner)
+		d->owner = owner;
 }
