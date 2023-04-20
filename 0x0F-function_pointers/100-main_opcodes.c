@@ -13,7 +13,7 @@
 int main(int argc, char **argv)
 {
 	int num_of_bytes, i;
-	unsigned char *bytes = (char *)main;
+	unsigned char *bytes = (unsigned char *)main;
 
 	if (argc != 2)
 	{
