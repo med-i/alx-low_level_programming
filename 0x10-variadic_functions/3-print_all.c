@@ -55,7 +55,7 @@ void print_all(const char *const format, ...)
 
 	while (i < n)
 	{
-		switch (format[i++])
+		switch (format[i])
 		{
 		case 'c':
 			print_char(va_arg(ap, int));
@@ -77,6 +77,7 @@ void print_all(const char *const format, ...)
 			printf(", ");
 
 		is_valid = 1;
+		i++;
 	}
 
 	printf("\n");
