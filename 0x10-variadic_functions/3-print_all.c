@@ -6,9 +6,6 @@
  */
 void print_char(char c)
 {
-	if (!c)
-		return;
-
 	printf("%c", c);
 }
 
@@ -38,7 +35,7 @@ void print_str(char *s)
 {
 	if (!s)
 	{
-		printf("nil");
+		printf("(nil)");
 		return;
 	}
 
