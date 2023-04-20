@@ -4,7 +4,7 @@
  * print_strings - prints strings.
  * @separator: the string to print between strings.
  * @n: the number of parameters.
-*/
+ */
 void print_strings(const char *separator, const unsigned int n, ...)
 {
 	va_list ap;
@@ -20,7 +20,7 @@ void print_strings(const char *separator, const unsigned int n, ...)
 		if (str)
 			printf("%s", str);
 		else
-			printf("nil");
+			printf("(nil)");
 
 		if (separator && i < n - 1)
 			printf("%s", separator);
