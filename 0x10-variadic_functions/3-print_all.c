@@ -73,7 +73,7 @@ void print_all(const char *const format, ...)
 			is_valid = 0;
 		}
 
-		if (i < n && is_valid)
+		if (i < n - 1 && is_valid)
 			printf(", ");
 
 		is_valid = 1;
