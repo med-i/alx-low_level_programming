@@ -37,8 +37,7 @@ int main(int argc, char **argv)
 			printf(" ");
 	}
 
-	if (num_of_bytes > 0)
-		printf("\n");
+	printf("\n");
 
 	return (0);
 }
