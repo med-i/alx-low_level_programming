@@ -49,11 +49,14 @@ void print_str(char *s)
 void print_all(const char *const format, ...)
 {
 	va_list ap;
-	int i = 0, n = strlen(format), is_valid = 1;
+	int i = 0, n = 0, is_valid = 1;
 
 	va_start(ap, format);
 
-	while (i < n)
+	while (format && format[n])
+		n++;
+
+	while (format && i < n)
 	{
 		switch (format[i])
 		{
