@@ -30,7 +30,12 @@ int main(int argc, char **argv)
 	}
 
 	for (i = 0; i < num_of_bytes; i++)
-		printf("%02x ", bytes[i]);
+	{
+		printf("%02x", bytes[i]);
+
+		if (i < num_of_bytes - 1)
+			printf(" ");
+	}
 
 	printf("\n");
 
