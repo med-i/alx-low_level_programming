@@ -1,14 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "lists.h"
 
 /**
- * print_listint_safe - Prints a linked list of integers, even if it contains
- *                      a loop. If a loop is detected, the function stops
- *                      printing and returns the number of nodes printed.
- * @head: A pointer to the head of the linked list.
+ * print_listint_safe - Prints a linked list of integers
+ * @head: A pointer to the head of the linked list
  *
- * Return: The number of nodes printed.
+ * Return: The number of nodes printed
  */
 size_t print_listint_safe(const listint_t *head)
 {
