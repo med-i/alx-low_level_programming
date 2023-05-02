@@ -11,7 +11,7 @@ size_t print_listint_safe(const listint_t *head)
 	const listint_t *current = head;
 	int count = 0;
 
-	if (!head)
+	if (!head || !current)
 		exit(98);
 
 	while (current)
