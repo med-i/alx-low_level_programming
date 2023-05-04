@@ -1,6 +1,46 @@
 #include "lists.h"
 
 /**
+ * get_listint_count - gets the number of nodes in a linked list
+ * @head: pointer to head of list
+ *
+ * Return: number of nodes in list
+ */
+size_t get_listint_count(listint_t *head)
+{
+	listint_t *slow, *fast;
+	int count = 0;
+
+	slow = head;
+	fast = head;
+
+	while (slow)
+	{
+		slow = slow->next;
+		count++;
+
+		if (!fast || !fast->next)
+			continue;
+		fast = fast->next->next;
+
+		if (slow == fast)
+		{
+			slow = head;
+			while (slow != fast)
+			{
+				fast = fast->next;
+				slow = slow->next;
+				count++;
+			}
+
+			break;
+		}
+	}
+
+	return (count);
+}
+
+/**
  * free_listint_safe - frees a listint_t list
  * @h: pointer to head of list
  *
@@ -8,38 +48,21 @@
  */
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *slow, *fast, *current;
-	int count = 0;
+	listint_t *current;
+	int count, i;
 
 	if (!h || !*h)
 		return (0);
 
-	slow = *h;
-	fast = *h;
+	count = get_listint_count(*h);
 
-	while (slow)
+	for (i = 0; i < count; i++)
 	{
-		current = slow;
-		slow = slow->next;
+		current = *h;
+		*h = (*h)->next;
 		free(current);
-		count++;
-
-		if (fast && fast->next)
-			fast = fast->next->next;
-
-		if (fast && slow == fast)
-		{
-			while (slow != fast)
-			{
-				current = slow;
-				slow = slow->next;
-				free(current);
-				count++;
-			}
-		}
 	}
 
 	*h = NULL;
-
 	return (count);
 }
