@@ -7,5 +7,9 @@
  */
 int get_endianness(void)
 {
-	
+	int num = 1234;
+	int *ptr = &num;
+	char *byte_ptr = (char *)ptr;
+
+	return (byte_ptr[0] == 0 ? 0 : 1);
 }
