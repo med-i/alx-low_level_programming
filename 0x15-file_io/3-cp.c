@@ -45,11 +45,13 @@ int main(int ac, char **av)
 
 	if (ac != 3)
 		handle_error(97, NULL);
-
+	if (!av[1])
+		handle_error(98, av[1]);
+	if (!av[2])
+		handle_error(99, av[2]);
 	fd_from = open(av[1], O_RDONLY);
 	if (fd_from == -1)
 		handle_error(98, av[1]);
-
 	fd_to = open(av[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd_to == -1)
 	{
@@ -75,9 +77,7 @@ int main(int ac, char **av)
 		handle_error(100, &fd_from);
 	if (close(fd_to) == -1)
 		handle_error(100, &fd_to);
-
 	if (r_bytes == -1)
 		handle_error(98, av[1]);
-
 	return (0);
 }
