@@ -51,8 +51,8 @@ int open_src_file(char *filename)
  */
 int open_des_file(char *filename, int fd_src)
 {
-	mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 	int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC);
+	mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
 	if (fd == -1)
 	{
@@ -63,7 +63,6 @@ int open_des_file(char *filename, int fd_src)
 	}
 
 	chmod(filename, mode);
-
 	return (fd);
 }
 
@@ -94,7 +93,7 @@ int main(int ac, char **av)
 	{
 		w_bytes = write(fd_to, buffer, r_bytes);
 
-		if (w_bytes == -1 || w_bytes != r_bytes)
+		if (w_bytes == -1)
 		{
 			if (close(fd_from) == -1)
 				print_error_and_exit(100, &fd_from);
