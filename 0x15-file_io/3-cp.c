@@ -52,7 +52,7 @@ int open_src_file(char *filename)
 int open_des_file(char *filename, int fd_src)
 {
 	mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
-	int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC);
+	int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 
 	if (fd == -1)
 	{
