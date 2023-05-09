@@ -3,9 +3,10 @@
 /**
  * print_error_and_exit - handles errors
  * @code: error code
- * @arg: argument to print
+ * @filename: name of the file
+ * @fd: file descriptor
  */
-void print_error_and_exit(int code, void *arg)
+void print_error_and_exit(int code, char *filename, int fd)
 {
 	switch (code)
 	{
@@ -13,13 +14,13 @@ void print_error_and_exit(int code, void *arg)
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		break;
 	case 98:
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", (char *)arg);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
 		break;
 	case 99:
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", (char *)arg);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
 		break;
 	case 100:
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", *((int *)arg));
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		break;
 	}
 
@@ -37,7 +38,7 @@ int open_src_file(char *filename)
 	int fd = open(filename, O_RDONLY);
 
 	if (fd == -1)
-		print_error_and_exit(98, filename);
+		print_error_and_exit(98, filename, 0);
 
 	return (fd);
 }
@@ -57,9 +58,9 @@ int open_des_file(char *filename, int fd_src)
 	if (fd == -1)
 	{
 		if (close(fd_src) == -1)
-			print_error_and_exit(100, &fd_src);
+			print_error_and_exit(100, NULL, fd_src);
 
-		print_error_and_exit(99, filename);
+		print_error_and_exit(99, filename, 0);
 	}
 
 	chmod(filename, mode);
@@ -84,7 +85,7 @@ int main(int ac, char **av)
 	unsigned char buffer[1024];
 
 	if (ac != 3)
-		print_error_and_exit(97, NULL);
+		print_error_and_exit(97, NULL, 0);
 
 	fd_from = open_src_file(av[1]);
 	fd_to = open_des_file(av[2], fd_from);
@@ -93,26 +94,26 @@ int main(int ac, char **av)
 	{
 		w_bytes = write(fd_to, buffer, r_bytes);
 
-		if (w_bytes == -1)
+		if (w_bytes == -1 || w_bytes != r_bytes)
 		{
 			if (close(fd_from) == -1)
-				print_error_and_exit(100, &fd_from);
+				print_error_and_exit(100, NULL, fd_from);
 
 			if (close(fd_to) == -1)
-				print_error_and_exit(100, &fd_to);
+				print_error_and_exit(100, NULL, fd_to);
 
-			print_error_and_exit(99, av[2]);
+			print_error_and_exit(99, av[2], 0);
 		}
 	}
 
 	if (r_bytes == -1)
-		print_error_and_exit(98, av[1]);
+		print_error_and_exit(98, av[1], 0);
 
 	if (close(fd_from) == -1)
-		print_error_and_exit(100, &fd_from);
+		print_error_and_exit(100, NULL, fd_from);
 
 	if (close(fd_to) == -1)
-		print_error_and_exit(100, &fd_to);
+		print_error_and_exit(100, NULL, fd_to);
 
 	return (0);
 }
