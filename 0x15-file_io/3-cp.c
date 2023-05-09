@@ -48,12 +48,17 @@ int open_src_file(char *filename)
  *
  * Return: file descriptor
  */
-int open_des_file(char *filename)
+int open_des_file(char *filename, int fd_src)
 {
 	int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 
 	if (fd == -1)
+	{
+		if (close(fd_src) == -1)
+			print_error_and_exit(100, &fd_src);
+
 		print_error_and_exit(99, filename);
+	}
 
 	return (fd);
 }
@@ -79,7 +84,7 @@ int main(int ac, char **av)
 		print_error_and_exit(97, NULL);
 
 	fd_from = open_src_file(av[1]);
-	fd_to = open_des_file(av[2]);
+	fd_to = open_des_file(av[2], fd_from);
 
 	while ((r_bytes = read(fd_from, buffer, sizeof(buffer))) > 0)
 	{
