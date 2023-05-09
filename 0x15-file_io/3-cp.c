@@ -45,6 +45,7 @@ int open_src_file(char *filename)
 /**
  * open_des_file - opens a file to write
  * @filename: name of the file to open
+ * @fd_src: file descriptor of the source file
  *
  * Return: file descriptor
  */
@@ -78,7 +79,7 @@ int open_des_file(char *filename, int fd_src)
 int main(int ac, char **av)
 {
 	int fd_from, fd_to, r_bytes, w_bytes;
-	char buffer[1024];
+	unsigned char buffer[1024];
 
 	if (ac != 3)
 		print_error_and_exit(97, NULL);
