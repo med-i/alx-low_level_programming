@@ -51,7 +51,8 @@ int open_src_file(char *filename)
  */
 int open_des_file(char *filename, int fd_src)
 {
-	int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+	int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC);
 
 	if (fd == -1)
 	{
@@ -61,6 +62,7 @@ int open_des_file(char *filename, int fd_src)
 		print_error_and_exit(99, filename);
 	}
 
+	fchmod(fd, mode);
 	return (fd);
 }
 
