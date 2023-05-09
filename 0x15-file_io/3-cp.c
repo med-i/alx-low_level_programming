@@ -10,16 +10,16 @@ void print_error_and_exit(int code, void *arg)
 	switch (code)
 	{
 	case 97:
-		dprintf(2, "Usage: cp file_from file_to\n");
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		break;
 	case 98:
-		dprintf(2, "Error: Can't read from file %s\n", (char *)arg);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", (char *)arg);
 		break;
 	case 99:
-		dprintf(2, "Error: Can't write to %s\n", (char *)arg);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", (char *)arg);
 		break;
 	case 100:
-		dprintf(2, "Error: Can't close fd %d\n", *((int *)arg));
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", *((int *)arg));
 		break;
 	}
 
@@ -51,8 +51,8 @@ int open_src_file(char *filename)
  */
 int open_des_file(char *filename, int fd_src)
 {
-	/* mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH; */
-	int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+	int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC);
 
 	if (fd == -1)
 	{
@@ -61,6 +61,8 @@ int open_des_file(char *filename, int fd_src)
 
 		print_error_and_exit(99, filename);
 	}
+
+	chmod(filename, mode);
 
 	return (fd);
 }
