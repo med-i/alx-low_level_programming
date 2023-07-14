@@ -107,7 +107,7 @@ void print_abi_version(char *abi_version)
  */
 void print_type(char *type)
 {
-	uint16_t t = le16toh(*(uint16_t *)type);
+	uint16_t t = be16toh(*(uint16_t *)type);
 
 	printf("  Type:                              ");
 	switch (t)
@@ -125,7 +125,7 @@ void print_type(char *type)
 		printf("DYN (Shared object file)\n");
 		break;
 	default:
-		printf("Other\n");
+		printf("Unknown\n");
 		break;
 	}
 }
@@ -135,17 +135,37 @@ void print_type(char *type)
  * @entry_point_address: Pointer to the entry point address bytes.
  * @class: ELF file class (ELF32 or ELF64).
  */
-void print_entry_point_address(char *entry_point_address, char *class)
+void print_entry_pnt_add(char *entry_point_address, char *class, char *data)
 {
 	if (class[0] == 1)
 	{
-		uint32_t entry = le32toh(*(uint32_t *)entry_point_address);
+		uint32_t entry;
+
+		if (data[0] == 1)
+			entry = le32toh(*(uint32_t *)entry_point_address);
+		else if (data[0] == 2)
+			entry = be32toh(*(uint32_t *)entry_point_address);
+		else
+		{
+			printf("  Entry point address:               Unknown\n");
+			return;
+		}
 
 		printf("  Entry point address:               0x%" PRIx32 "\n", entry);
 	}
 	else if (class[0] == 2)
 	{
-		uint64_t entry = le64toh(*(uint64_t *)entry_point_address);
+		uint64_t entry;
+
+		if (data[0] == 1)
+			entry = le64toh(*(uint64_t *)entry_point_address);
+		else if (data[0] == 2)
+			entry = be64toh(*(uint64_t *)entry_point_address);
+		else
+		{
+			printf("  Entry point address:               Unknown\n");
+			return;
+		}
 
 		printf("  Entry point address:               0x%" PRIx64 "\n", entry);
 	}
@@ -217,7 +237,7 @@ void read_and_print(int fd)
 	print_os_abi((unsigned char)*os_abi);
 	print_abi_version(abi_version);
 	print_type(type);
-	print_entry_point_address(entry_point_address, class);
+	print_entry_pnt_add(entry_point_address, class, data);
 
 	free(magic);
 	free(class);
