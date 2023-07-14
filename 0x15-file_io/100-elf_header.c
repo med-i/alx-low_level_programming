@@ -143,19 +143,20 @@ void print_type(char *type, char *data)
 
 /**
  * print_entry_point_address - Prints the entry point address of the ELF file.
- * @entry_point_address: Pointer to the entry point address bytes.
- * @class: ELF file class (ELF32 or ELF64).
+ * @entry_pnt_add: Pointer to the entry point address bytes.
+ * @class: Pointer to the class bytes.
+ * @data: Pointer to the data encoding byte.
  */
-void print_entry_pnt_add(char *entry_point_address, char *class, char *data)
+void print_entry_point_address(char *entry_pnt_add, char *class, char *data)
 {
 	if (class[0] == 1)
 	{
 		uint32_t entry;
 
 		if (data[0] == 1)
-			entry = le32toh(*(uint32_t *)entry_point_address);
+			entry = le32toh(*(uint32_t *)entry_pnt_add);
 		else if (data[0] == 2)
-			entry = be32toh(*(uint32_t *)entry_point_address);
+			entry = be32toh(*(uint32_t *)entry_pnt_add);
 		else
 		{
 			printf("  Entry point address:               Unknown\n");
@@ -169,9 +170,9 @@ void print_entry_pnt_add(char *entry_point_address, char *class, char *data)
 		uint64_t entry;
 
 		if (data[0] == 1)
-			entry = le64toh(*(uint64_t *)entry_point_address);
+			entry = le64toh(*(uint64_t *)entry_pnt_add);
 		else if (data[0] == 2)
-			entry = be64toh(*(uint64_t *)entry_point_address);
+			entry = be64toh(*(uint64_t *)entry_pnt_add);
 		else
 		{
 			printf("  Entry point address:               Unknown\n");
