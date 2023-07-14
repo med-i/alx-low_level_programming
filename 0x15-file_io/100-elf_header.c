@@ -249,7 +249,7 @@ void read_and_print(int fd)
 	print_os_abi((unsigned char)*os_abi);
 	print_abi_version(abi_version);
 	print_type(type, data);
-	print_entry_pnt_add(entry_point_address, class, data);
+	print_entry_point_address(entry_point_address, class, data);
 
 	free(magic);
 	free(class);
