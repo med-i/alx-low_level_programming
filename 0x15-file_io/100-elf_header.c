@@ -7,18 +7,13 @@
  */
 void print_magic(char *magic)
 {
-	printf("  Magic:   %.2x %.2x %.2x %.2x"
-	       " %.2x %.2x %.2x %.2x"
-	       " %.2x %.2x %.2x %.2x"
-	       " %.2x %.2x %.2x %.2x\n",
-	       (unsigned int)magic[0], (unsigned int)magic[1],
-	       (unsigned int)magic[2], (unsigned int)magic[3],
-	       (unsigned int)magic[4], (unsigned int)magic[5],
-	       (unsigned int)magic[6], (unsigned int)magic[7],
-	       (unsigned int)magic[8], (unsigned int)magic[9],
-	       (unsigned int)magic[10], (unsigned int)magic[11],
-	       (unsigned int)magic[12], (unsigned int)magic[13],
-	       (unsigned int)magic[14], (unsigned int)magic[15]);
+	int i;
+
+	printf("  Magic:   ");
+	for (i = 0; i < 16; i++)
+		printf("%.2x ", (unsigned int)magic[i]);
+
+	printf("\n");
 }
 
 /**
@@ -52,24 +47,42 @@ void print_version(char *version)
 }
 
 /**
- * print_os_abi - Prints the OS ABI of the ELF file.
- * @os_abi: Pointer to the OS ABI byte.
+ * print_os_abi - Prints the OS/ABI of the ELF file
+ * @os_abi: Pointer to the OS/ABI byte
  */
 void print_os_abi(char *os_abi)
 {
-	printf("  OS/ABI:                            ");
-	switch (os_abi[0])
+	os_abi_struct os_abis[] = {
+	    {0x00, "UNIX - System V"},
+	    {0x01, "UNIX - HP-UX"},
+	    {0x02, "UNIX - NetBSD"},
+	    {0x03, "UNIX - Linux"},
+	    {0x06, "UNIX - Solaris"},
+	    {0x07, "UNIX - AIX"},
+	    {0x08, "UNIX - IRIX"},
+	    {0x09, "UNIX - FreeBSD"},
+	    {0x0C, "UNIX - OpenBSD"},
+	    {0x0D, "UNIX - OpenVMS"},
+	    {0x0E, "UNIX - NonStop Kernel"},
+	    {0x0F, "UNIX - AROS"},
+	    {0x10, "UNIX - Fenix OS"},
+	    {0x11, "UNIX - CloudABI"},
+	    {0x53, "UNIX - Sortix"},
+	};
+
+	char *name = "Other";
+	size_t i;
+
+	for (i = 0; i < sizeof(os_abis) / sizeof(os_abi_struct); ++i)
 	{
-	case 0x00:
-		printf("UNIX - System V\n");
-		break;
-	case 0x03:
-		printf("UNIX - Linux\n");
-		break;
-	default:
-		printf("Other\n");
-		break;
+		if (os_abis[i].value == os_abi[0])
+		{
+			name = os_abis[i].name;
+			break;
+		}
 	}
+
+	printf("  OS/ABI:                            %s\n", name);
 }
 
 /**
@@ -113,12 +126,22 @@ void print_type(char *type)
 /**
  * print_entry_point_address - Prints the entry point address of the ELF file.
  * @entry_point_address: Pointer to the entry point address bytes.
+ * @class: ELF file class (ELF32 or ELF64).
  */
-void print_entry_point_address(char *entry_point_address)
+void print_entry_point_address(char *entry_point_address, char *class)
 {
-	uint64_t entry = le64toh(*(uint64_t *)entry_point_address);
+	if (class[0] == 1)
+	{
+		uint32_t entry = le32toh(*(uint32_t *)entry_point_address);
 
-	printf("  Entry point address:               0x%" PRIx64 "\n", entry);
+		printf("  Entry point address:               0x%" PRIx32 "\n", entry);
+	}
+	else if (class[0] == 2)
+	{
+		uint64_t entry = le64toh(*(uint64_t *)entry_point_address);
+
+		printf("  Entry point address:               0x%" PRIx64 "\n", entry);
+	}
 }
 
 /**
@@ -179,6 +202,7 @@ void read_and_print(int fd)
 	char *type = read_bytes(fd, 16, 18);
 	char *entry_point_address = read_bytes(fd, 24, 32);
 
+	printf("ELF Header:\n");
 	print_magic(magic);
 	print_class(class);
 	print_data(data);
@@ -186,7 +210,7 @@ void read_and_print(int fd)
 	print_os_abi(os_abi);
 	print_abi_version(abi_version);
 	print_type(type);
-	print_entry_point_address(entry_point_address);
+	print_entry_point_address(entry_point_address, class);
 
 	free(magic);
 	free(class);
