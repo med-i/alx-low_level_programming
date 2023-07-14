@@ -54,7 +54,7 @@ void print_version(char *version)
  * print_os_abi - Prints the OS/ABI of the ELF file
  * @os_abi: Pointer to the OS/ABI byte
  */
-void print_os_abi(char *os_abi)
+void print_os_abi(unsigned char os_abi)
 {
 	os_abi_struct os_abis[] = {
 	    {0x00, "UNIX - System V"},
@@ -71,22 +71,25 @@ void print_os_abi(char *os_abi)
 	    {0x0F, "UNIX - AROS"},
 	    {0x10, "UNIX - Fenix OS"},
 	    {0x11, "UNIX - CloudABI"},
-	    {0x53, "UNIX - Sortix"},
 	};
 
-	char *name = "Other";
+	int is_known = 0;
 	size_t i;
 
 	for (i = 0; i < sizeof(os_abis) / sizeof(os_abi_struct); ++i)
 	{
-		if (os_abis[i].value == os_abi[0])
+		if (os_abis[i].value == os_abi)
 		{
-			name = os_abis[i].name;
+			printf("  OS/ABI:                            %s\n", os_abis[i].name);
+			is_known = 1;
 			break;
 		}
 	}
 
-	printf("  OS/ABI:                            %s\n", name);
+	if (!is_known)
+	{
+		printf("  OS/ABI:                            <unknown: %02x>\n", os_abi);
+	}
 }
 
 /**
@@ -211,7 +214,7 @@ void read_and_print(int fd)
 	print_class(class);
 	print_data(data);
 	print_version(version);
-	print_os_abi(os_abi);
+	print_os_abi((unsigned char)*os_abi);
 	print_abi_version(abi_version);
 	print_type(type);
 	print_entry_point_address(entry_point_address, class);
