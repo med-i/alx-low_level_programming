@@ -104,10 +104,21 @@ void print_abi_version(char *abi_version)
 /**
  * print_type - Prints the type of the ELF file.
  * @type: Pointer to the type bytes.
+ * @data: Pointer to the data encoding byte.
  */
-void print_type(char *type)
+void print_type(char *type, char *data)
 {
-	uint16_t t = be16toh(*(uint16_t *)type);
+	uint16_t t;
+
+	if (data[0] == 1)
+		t = le16toh(*(uint16_t *)type);
+	else if (data[0] == 2)
+		t = be16toh(*(uint16_t *)type);
+	else
+	{
+		printf("  Type:                              Unknown\n");
+		return;
+	}
 
 	printf("  Type:                              ");
 	switch (t)
@@ -125,7 +136,7 @@ void print_type(char *type)
 		printf("DYN (Shared object file)\n");
 		break;
 	default:
-		printf("Unknown\n");
+		printf("Other\n");
 		break;
 	}
 }
@@ -236,7 +247,7 @@ void read_and_print(int fd)
 	print_version(version);
 	print_os_abi((unsigned char)*os_abi);
 	print_abi_version(abi_version);
-	print_type(type);
+	print_type(type, data);
 	print_entry_pnt_add(entry_point_address, class, data);
 
 	free(magic);
