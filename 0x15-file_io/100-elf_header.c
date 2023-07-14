@@ -11,7 +11,11 @@ void print_magic(char *magic)
 
 	printf("  Magic:   ");
 	for (i = 0; i < 16; i++)
-		printf("%.2x ", (unsigned int)magic[i]);
+	{
+		printf("%.2x", (unsigned int)magic[i]);
+		if (i != 15)
+			printf(" ");
+	}
 
 	printf("\n");
 }
