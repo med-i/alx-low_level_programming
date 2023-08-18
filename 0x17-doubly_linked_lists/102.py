@@ -1,20 +1,18 @@
 #!/usr/bin/python3
 
 
-def multiply():
-    is_palindrome = False
+def largest_palindrome():
+    largest = 0
 
     for i in range(999, 99, -1):
-        if is_palindrome:
-            break
         for j in range(999, 99, -1):
-            res = i * j
-            if str(res) == str(res)[::-1]:
-                print(i)
-                print(j)
-                print(res)
-                is_palindrome = True
+            result = i * j
+            if result <= largest:
                 break
+            if str(result) == str(result)[::-1]:
+                largest = result
+
+    return largest
 
 
-multiply()
+print(largest_palindrome())
