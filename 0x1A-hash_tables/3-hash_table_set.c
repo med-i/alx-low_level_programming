@@ -19,9 +19,13 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	index = key_index((const unsigned char *)key, ht->size);
 	temp = ht->array[index];
 
-	if (strcmp(temp->key, key) == 0)
-		if (strcmp(temp->value, value))
+	while (temp)
+	{
+		if (strcmp(temp->key, key) == 0 && strcmp(temp->value, value) == 0)
 			return (1);
+
+		temp = temp->next;
+	}
 
 	node = malloc(sizeof(hash_node_t));
 	if (!node)
