@@ -10,7 +10,7 @@
  */
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-	hash_node_t *node, *temp;
+	hash_node_t *node;
 	unsigned long index;
 
 	if (!ht || !key || !*key)
