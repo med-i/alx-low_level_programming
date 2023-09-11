@@ -6,7 +6,7 @@
  */
 void hash_table_print(const hash_table_t *ht)
 {
-	unsigned long i = 0;
+	unsigned long i;
 	hash_node_t *current;
 	char *delim = "";
 
